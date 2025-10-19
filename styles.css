@@ -131,91 +131,111 @@ nav a:hover::after {
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   position: relative;
-  /* background: linear-gradient(135deg, #ffd4c8 0%, #ffb8a8 50%, #d4a574 100%); */
+  background: linear-gradient(135deg, #ffd4c8 0%, #ffb8a8 50%, #d4a574 100%);
   opacity: 0;
   transition: opacity 0.6s;
-}
-
-.carousel-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-
-.carousel-slide::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 212, 200, 0.7) 0%,
-    rgba(255, 184, 168, 0.7) 50%,
-    rgba(212, 165, 116, 0.7) 100%
-  );
-  z-index: 1;
+  padding: 0 5%;
+  gap: 3rem;
 }
 
 .carousel-slide.active {
   opacity: 1;
 }
 
-.carousel-slide:nth-child(2)::before {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 232, 224, 0.7) 0%,
-    rgba(255, 212, 200, 0.7) 50%,
-    rgba(201, 125, 96, 0.7) 100%
-  );
+.carousel-slide:nth-child(2) {
+  background: linear-gradient(135deg, #ffe8e0 0%, #ffd4c8 50%, #c97d60 100%);
 }
 
-.carousel-slide:nth-child(3)::before {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 245, 240, 0.7) 0%,
-    rgba(255, 232, 224, 0.7) 50%,
-    rgba(212, 165, 116, 0.7) 100%
-  );
+.carousel-slide:nth-child(3) {
+  background: linear-gradient(135deg, #fff5f0 0%, #ffe8e0 50%, #d4a574 100%);
 }
 
-.carousel-content {
-  text-align: center;
+.carousel-text-section {
+  flex: 1;
   color: white;
-  padding: 2rem;
-  animation: slideUp 0.8s ease-out;
-  position: relative;
   z-index: 2;
+  animation: slideInLeft 0.8s ease-out;
+  padding-left: 2rem;
 }
 
-@keyframes slideUp {
+@keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateX(-50px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
-.carousel-content h1 {
+.carousel-text-section h1 {
   font-size: 3.5rem;
   margin-bottom: 1rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.carousel-content p {
+.carousel-text-section p {
   font-size: 1.3rem;
   margin-bottom: 2rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-image-section {
+  width: 400px;
+  height: 400px;
+  flex-shrink: 0;
+  z-index: 2;
+  animation: slideInRight 0.8s ease-out;
+  position: relative;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.carousel-image-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-slide.active .carousel-image-section img {
+  animation: floatImage 3s ease-in-out infinite;
+}
+
+@keyframes floatImage {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.carousel-bg {
+  display: none;
+}
+
+.carousel-slide::before {
+  display: none;
+}
+
+.carousel-content {
+  display: none;
 }
 
 .btn-primary {
@@ -1136,8 +1156,24 @@ footer {
     height: 350px;
   }
 
-  .carousel-content h1 {
+  .carousel-slide {
+    flex-direction: column;
+    padding: 2rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .carousel-text-section {
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .carousel-text-section h1 {
     font-size: 2rem;
+  }
+
+  .carousel-image-section {
+    width: 280px;
+    height: 280px;
   }
 
   .categories {
